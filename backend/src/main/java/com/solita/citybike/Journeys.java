@@ -16,6 +16,8 @@ public class Journeys {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
+
+
     private Timestamp departure_time;
 
     private Timestamp return_time;
@@ -31,6 +33,10 @@ public class Journeys {
     private Integer distance;
 
     private Integer duration;
+    
+    public Long getID() {
+        return ID;
+    }
 
     public Timestamp getDeparture_time() {
         return departure_time;
