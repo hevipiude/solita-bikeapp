@@ -1,7 +1,17 @@
 package com.solita.citybike;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-public interface JourneyRepository extends CrudRepository<Journey, Integer> {
+// The interface is annotated with @Repository, indicating it is a repository class for handling data operations.
+@Repository
+// findAllJourneys() is annotated with @Query to execute a SELECT query to fetch
+// all journeys from the JOURNEYS table.
+public interface JourneyRepository extends JpaRepository<Journeys, Long> {
+    @Query(value = "SELECT * FROM JOURNEYS", nativeQuery = true)
+    Page<Journeys> findAllJourneys(Pageable pageable);
 
 }
