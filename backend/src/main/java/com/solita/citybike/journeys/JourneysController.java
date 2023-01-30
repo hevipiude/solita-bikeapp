@@ -1,4 +1,4 @@
-package com.solita.citybike;
+package com.solita.citybike.journeys;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 // The JourneyController class handles HTTP requests with @RestController annotation. It uses @Autowired to inject a JourneyService instance variable.
 @RestController
-public class JourneyController {
+public class JourneysController {
 
     @Autowired
-    private JourneyService journeyService;
+    private JourneysService journeyService;
 
     // The class has a @GetMapping("/journeys") method which returns paginated data
     // of type Journeys. The method calls the journeyService's getAllJourneys()

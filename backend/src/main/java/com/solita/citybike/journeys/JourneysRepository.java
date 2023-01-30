@@ -1,4 +1,4 @@
-package com.solita.citybike;
+package com.solita.citybike.journeys;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 @Repository
 // findAllJourneys() is annotated with @Query to execute a SELECT query to fetch
 // all journeys from the JOURNEYS table.
-public interface JourneyRepository extends JpaRepository<Journeys, Long> {
+public interface JourneysRepository extends JpaRepository<Journeys, Long> {
     @Query(value = "SELECT * FROM JOURNEYS", nativeQuery = true)
     Page<Journeys> findAllJourneys(Pageable pageable);
 

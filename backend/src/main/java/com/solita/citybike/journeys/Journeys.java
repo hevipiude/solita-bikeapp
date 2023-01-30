@@ -1,4 +1,4 @@
-package com.solita.citybike;
+package com.solita.citybike.journeys;
 
 import java.sql.Timestamp;
 import jakarta.persistence.Entity;
@@ -16,8 +16,6 @@ public class Journeys {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
-
-
     private Timestamp departure_time;
 
     private Timestamp return_time;
@@ -33,7 +31,7 @@ public class Journeys {
     private Integer distance;
 
     private Integer duration;
-    
+
     public Long getID() {
         return ID;
     }
