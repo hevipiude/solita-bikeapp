@@ -39,7 +39,6 @@ function JourneyTable() {
         <Table>
           <TableBody>
             <TableRow>
-              <TableCell>ID</TableCell>
               <TableCell>Lähtöasema</TableCell>
               <TableCell>Saapumisasema</TableCell>
               <TableCell>Matka</TableCell>
@@ -47,9 +46,10 @@ function JourneyTable() {
             </TableRow>
             {rows.map((journey) => (
               <TableRow key={journey.id}>
-                <TableCell>{journey.id}</TableCell>
-                <TableCell>{journey.departure_station_name}</TableCell>
-                <TableCell>{journey.return_station_name}</TableCell>
+                <TableCell width={300}>
+                  {journey.departure_station_name}
+                </TableCell>
+                <TableCell width={300}>{journey.return_station_name}</TableCell>
                 <TableCell>{metersToKilometers(journey.distance)}</TableCell>
                 <TableCell>{secondsToMinutes(journey.duration)}</TableCell>
               </TableRow>
