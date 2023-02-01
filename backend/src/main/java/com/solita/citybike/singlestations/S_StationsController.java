@@ -33,7 +33,7 @@ public class S_StationsController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/s_station")
-    public Optional<S_Station> getStationByID(@RequestParam(defaultValue = "0") int id) {
+    public Optional<S_Station> getStationByID(@RequestParam(defaultValue = "0") Integer id) {
         System.out.println(id);
         return stationService.getS_StationByID(id);
     }

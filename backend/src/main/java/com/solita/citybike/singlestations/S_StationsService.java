@@ -28,7 +28,7 @@ public class S_StationsService {
         return pagingStations.getContent();
     }
 
-    public Optional<S_Station> getS_StationByID(int id) {
+    public Optional<S_Station> getS_StationByID(Integer id) {
 
         // pass id to repos
         Optional<S_Station> station = stationsRepository.findById(id);

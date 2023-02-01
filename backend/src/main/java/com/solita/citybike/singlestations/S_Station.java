@@ -9,17 +9,17 @@ public class S_Station {
 
     // The class has an ID field, indicating that it is the primary key
     @Id
-    private int id;
+    private Integer id;
 
     private String name_fin;
 
     private String address_fin;
 
-    private int departure_count;
+    private Integer departure_count;
 
-    private int return_count;
+    private Integer return_count;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -31,15 +31,15 @@ public class S_Station {
         return name_fin;
     }
 
-    public int getDeparture_count() {
+    public Integer getDeparture_count() {
         return departure_count;
     }
 
-    public int getReturn_count() {
+    public Integer getReturn_count() {
         return return_count;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,11 +51,11 @@ public class S_Station {
         this.name_fin = name_fin;
     }
 
-    public void setDeparture_count(int departure_count) {
+    public void setDeparture_count(Integer departure_count) {
         this.departure_count = departure_count;
     }
 
-    public void setReturn_count(int return_count) {
+    public void setReturn_count(Integer return_count) {
         this.return_count = return_count;
     }
 }
