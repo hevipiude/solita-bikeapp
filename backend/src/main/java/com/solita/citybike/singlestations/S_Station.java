@@ -3,7 +3,7 @@ package com.solita.citybike.singlestations;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-// Stations class is annotated with @Entity, indicating that it is a JPA entity.
+// S_Station class is annotated with @Entity, indicating that it is a JPA entity.
 @Entity
 public class S_Station {
 
