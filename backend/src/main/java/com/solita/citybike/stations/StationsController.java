@@ -1,6 +1,7 @@
 package com.solita.citybike.stations;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,13 @@ public class StationsController {
             @RequestParam(defaultValue = "10") Integer pageSize, Pageable pageable) {
         System.out.println(pageNumber + " " + pageSize);
         return stationService.getStationsByPagination(pageNumber, pageSize);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/singlestation")
+    public Optional<Stations> getStationByID(@RequestParam(defaultValue = "0") int id) {
+        System.out.println(id);
+        return stationService.getStationsByID(id);
     }
 
 }

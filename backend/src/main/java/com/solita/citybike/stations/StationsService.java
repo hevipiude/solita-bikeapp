@@ -1,6 +1,7 @@
 package com.solita.citybike.stations;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,5 +26,13 @@ public class StationsService {
         Page<Stations> pagingStations = stationsRepository.findAll(pageRequest);
         // pagingStations.getContent(); -- to check pages are there or not
         return pagingStations.getContent();
+    }
+
+    public Optional<Stations> getStationsByID(int id) {
+
+        // pass id to repos
+        Optional<Stations> station = stationsRepository.findById(id);
+        // pagingStations.getContent(); -- to check pages are there or not
+        return station;
     }
 }
