@@ -1,7 +1,10 @@
 package com.solita.citybike.stations;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +16,15 @@ public class StationsService {
     // The class has an instance variable of JourneyRepository, which is annotated
     // with @Autowired to inject the repository class
     @Autowired
-    private StationsRepository stationRepository;
+    private StationsRepository stationsRepository;
 
-    // getAllJourneys() takes a Pageable object as a parameter which is used for
-    // pagination of the returned data
-    public Page<Stations> getAllStations(Pageable pageable) {
-        // The method returns a Page object which contains the paginated data of type
-        // Journeys
-        return stationRepository.findAll(pageable);
+    public List<Stations> getStationsByPagination(int pageNo, int pageSize) {
+
+        // create pagerequest object
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
+        // pass it to repos
+        Page<Stations> pagingUser = stationsRepository.findAll(pageRequest);
+        // pagingUser.hasContent(); -- to check pages are there or not
+        return pagingUser.getContent();
     }
 }

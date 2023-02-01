@@ -12,6 +12,5 @@ import org.springframework.data.domain.Pageable;
 // all stations from the STATIONS table.
 public interface StationsRepository extends JpaRepository<Stations, Long> {
     @Query(value = "SELECT * FROM STATIONS", nativeQuery = true)
-    Page<Stations> findAllStations(Pageable pageable);
-
+    Page<Stations> findAllStations(int pageNo, int pageSize, Pageable pageable);
 }
