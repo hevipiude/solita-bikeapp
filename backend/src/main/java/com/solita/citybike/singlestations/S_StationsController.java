@@ -26,7 +26,7 @@ public class S_StationsController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/s_stations")
     public List<S_Station> getPagedStations(@RequestParam(defaultValue = "0") Integer pageNumber,
-            @RequestParam(defaultValue = "10") Integer pageSize, Pageable pageable) {
+            @RequestParam(defaultValue = "100") Integer pageSize, Pageable pageable) {
         System.out.println(pageNumber + " " + pageSize);
         return stationService.getS_StationsByPagination(pageNumber, pageSize);
     }

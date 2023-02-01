@@ -23,7 +23,7 @@ public class JourneysController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/journeys")
     public List<Journeys> getPagedStations(@RequestParam(defaultValue = "0") Integer pageNumber,
-            @RequestParam(defaultValue = "10") Integer pageSize, Pageable pageable) {
+            @RequestParam(defaultValue = "100") Integer pageSize, Pageable pageable) {
         System.out.println(pageNumber + " " + pageSize);
         return journeyService.getJourneysByPagination(pageNumber, pageSize);
     }
