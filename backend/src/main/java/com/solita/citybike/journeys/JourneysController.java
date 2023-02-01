@@ -1,10 +1,12 @@
 package com.solita.citybike.journeys;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 // The JourneyController class handles HTTP requests with @RestController annotation. It uses @Autowired to inject a JourneyService instance variable.
@@ -20,7 +22,9 @@ public class JourneysController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/journeys")
-    public Page<Journeys> getAllJourneys(Pageable pageable) {
-        return journeyService.getAllJourneys(pageable);
+    public List<Journeys> getPagedStations(@RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize, Pageable pageable) {
+        System.out.println(pageNumber + " " + pageSize);
+        return journeyService.getJourneysByPagination(pageNumber, pageSize);
     }
 }

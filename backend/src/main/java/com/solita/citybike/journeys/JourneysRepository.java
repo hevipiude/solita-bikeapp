@@ -12,6 +12,6 @@ import org.springframework.data.domain.Pageable;
 // all journeys from the JOURNEYS table.
 public interface JourneysRepository extends JpaRepository<Journeys, Long> {
     @Query(value = "SELECT * FROM JOURNEYS", nativeQuery = true)
-    Page<Journeys> findAllJourneys(Pageable pageable);
+    Page<Journeys> findAllJourneys(int pageNo, int pageSize, Pageable pageable);
 
 }

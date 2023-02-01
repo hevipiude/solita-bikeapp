@@ -1,8 +1,10 @@
 package com.solita.citybike.journeys;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,11 +17,13 @@ public class JourneysService {
     @Autowired
     private JourneysRepository journeyRepository;
 
-    // getAllJourneys() takes a Pageable object as a parameter which is used for
-    // pagination of the returned data
-    public Page<Journeys> getAllJourneys(Pageable pageable) {
-        // The method returns a Page object which contains the paginated data of type
-        // Journeys
-        return journeyRepository.findAll(pageable);
+    public List<Journeys> getJourneysByPagination(int pageNo, int pageSize) {
+
+        // create pagerequest object
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
+        // pass it to repos
+        Page<Journeys> pagingJourneys = journeyRepository.findAll(pageRequest);
+        // pagingJourneys.getContent(); -- to check pages are there or not
+        return pagingJourneys.getContent();
     }
 }
