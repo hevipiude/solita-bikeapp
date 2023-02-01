@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,8 +22,8 @@ public class StationsService {
         // create pagerequest object
         PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
         // pass it to repos
-        Page<Stations> pagingUser = stationsRepository.findAll(pageRequest);
-        // pagingUser.hasContent(); -- to check pages are there or not
-        return pagingUser.getContent();
+        Page<Stations> pagingStations = stationsRepository.findAll(pageRequest);
+        // pagingStations.getContent(); -- to check pages are there or not
+        return pagingStations.getContent();
     }
 }
