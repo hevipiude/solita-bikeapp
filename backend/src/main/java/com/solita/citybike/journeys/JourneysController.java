@@ -1,8 +1,7 @@
 package com.solita.citybike.journeys;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,7 @@ public class JourneysController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/journeys")
-    public List<Journeys> getPagedStations(@RequestParam(defaultValue = "0") Integer pageNumber,
+    public Page<Journeys> getPagedStations(@RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "100") Integer pageSize, Pageable pageable) {
         System.out.println(pageNumber + " " + pageSize);
         return journeyService.getJourneysByPagination(pageNumber, pageSize);
