@@ -1,5 +1,3 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
 import {
   Box,
   Table,
@@ -9,19 +7,10 @@ import {
   TableRow,
   TablePagination,
 } from '@mui/material'
+import usePaginatedData from '../utils/usePaginatedData'
 
 function JourneyTable() {
-  const [journeys, setJourneys] = useState({ content: [] })
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8080/journeys')
-      .then((res) => setJourneys(res.data))
-      .catch((err) => console.error(err))
-  }, [])
-
-  const rows = journeys.content
-  console.log(rows)
+  const { content, paginationProps } = usePaginatedData('journeys')
 
   const secondsToMinutes = (seconds) =>
     Math.floor(seconds / 60) + ':' + ('0' + Math.floor(seconds % 60)).slice(-2)
@@ -39,24 +28,27 @@ function JourneyTable() {
         <Table>
           <TableBody>
             <TableRow>
+              <TableCell>ID</TableCell>
               <TableCell>Lähtöasema</TableCell>
               <TableCell>Saapumisasema</TableCell>
               <TableCell>Matka</TableCell>
               <TableCell>Aika</TableCell>
             </TableRow>
-            {rows.map((journey) => (
-              <TableRow key={journey.id}>
-                <TableCell width={300}>
-                  {journey.departure_station_name}
-                </TableCell>
-                <TableCell width={300}>{journey.return_station_name}</TableCell>
-                <TableCell>{metersToKilometers(journey.distance)}</TableCell>
-                <TableCell>{secondsToMinutes(journey.duration)}</TableCell>
+            {content.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.id}</TableCell>
+                <TableCell>{row.departure_station_name}</TableCell>
+                <TableCell>{row.return_station_name}</TableCell>
+                <TableCell>{metersToKilometers(row.distance)}</TableCell>
+                <TableCell>{secondsToMinutes(row.duration)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <Box>
+        <TablePagination {...paginationProps} />
+      </Box>
     </Box>
   )
 }

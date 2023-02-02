@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   Box,
   Table,
@@ -7,20 +6,36 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  TablePagination,
+  Button,
 } from '@mui/material'
+import StationDetails from './StationDetails'
+import usePaginatedData from '../utils/usePaginatedData'
 
 function StationTable() {
-  const [stations, setStations] = useState({ content: [] })
+  const { content, paginationProps } = usePaginatedData('stations')
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8080/stations')
-      .then((res) => setStations(res.data))
-      .catch((err) => console.error(err))
-  }, [])
+  const ExpandableTableRow = ({ children, expandComponent }) => {
+    const [isExpanded, setIsExpanded] = useState(false)
 
-  const rows = stations.content
-  console.log(rows)
+    return (
+      <>
+        <TableRow>
+          {children}
+          <TableCell padding='checkbox'>
+            <Button onClick={() => setIsExpanded(!isExpanded)}>
+              {isExpanded ? 'piilota' : 'näytä'}
+            </Button>
+          </TableCell>
+        </TableRow>
+        {isExpanded && (
+          <TableRow>
+            <TableCell colSpan={6}>{expandComponent}</TableCell>
+          </TableRow>
+        )}
+      </>
+    )
+  }
 
   return (
     <Box>
@@ -28,26 +43,30 @@ function StationTable() {
         <Table>
           <TableBody>
             <TableRow>
-              <TableCell>Aseman ID</TableCell>
               <TableCell>Nimi</TableCell>
               <TableCell>Osoite</TableCell>
               <TableCell>Kaupunki</TableCell>
               <TableCell>Operaattori</TableCell>
               <TableCell>Kapasiteetti</TableCell>
+              <TableCell>Lisätietoja</TableCell>
             </TableRow>
-            {rows.map((station) => (
-              <TableRow key={station.fid}>
-                <TableCell width={300}>{station.station_id}</TableCell>
-                <TableCell width={300}>{station.name_fin}</TableCell>
-                <TableCell width={300}>{station.address_fin}</TableCell>
-                <TableCell width={300}>{station.city_fin}</TableCell>
-                <TableCell width={300}>{station.operator}</TableCell>
-                <TableCell width={300}>{station.capacity}</TableCell>
-              </TableRow>
+            {content.map((row) => (
+              <ExpandableTableRow
+                key={row.name_fin}
+                expandComponent={<StationDetails row={row}></StationDetails>}>
+                <TableCell>{row.name_fin}</TableCell>
+                <TableCell>{row.address_fin}</TableCell>
+                <TableCell>{row.city_fin}</TableCell>
+                <TableCell>{row.operator}</TableCell>
+                <TableCell>{row.capacity}</TableCell>
+              </ExpandableTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <Box>
+        <TablePagination {...paginationProps} />
+      </Box>
     </Box>
   )
 }
