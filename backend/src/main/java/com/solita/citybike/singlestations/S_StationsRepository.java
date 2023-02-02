@@ -18,6 +18,6 @@ public interface S_StationsRepository extends JpaRepository<S_Station, Long> {
 
     Page<S_Station> findAllStations(int pageNo, int pageSize, Pageable pageable);
 
-    @Query(value = "SELECT * FROM S_STATION WHERE id = (:id)", nativeQuery = true)
+    @Query(value = "SELECT id, name_fin, address_fin,  Coalesce(departure_count, 0) AS departure_count, Coalesce(return_count, 0) AS return_count FROM s_station WHERE id = (:id)", nativeQuery = true)
     Optional<S_Station> findById(int id);
 }
