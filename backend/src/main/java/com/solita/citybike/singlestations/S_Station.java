@@ -3,11 +3,9 @@ package com.solita.citybike.singlestations;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-// S_Station class is annotated with @Entity, indicating that it is a JPA entity.
 @Entity
 public class S_Station {
 
-    // The class has an ID field, indicating that it is the primary key
     @Id
     private Integer id;
 

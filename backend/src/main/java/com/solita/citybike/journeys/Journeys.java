@@ -6,12 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-// Journeys class is annotated with @Entity, indicating that it is a JPA entity.
 @Entity
 public class Journeys {
 
-    // The class has an ID field, indicating that it is the primary key and it is
-    // generated automatically.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
