@@ -15,7 +15,7 @@ public class JourneysController {
     private JourneysService journeyService;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("/journeys")
+    @GetMapping("/")
     public Page<Journeys> getPagedStations(@RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "100") Integer pageSize, Pageable pageable) {
         return journeyService.getJourneysByPagination(pageNumber, pageSize);
