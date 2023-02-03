@@ -14,8 +14,6 @@ Java JDK version: 17.0.6
 Apache Maven 3.8.7
 MySQL 8.0.25
 
-After cloning this repository,
-
 ### Database
 
 Initializing the database will take a while, so before proceeding to running the backend and the frontend make sure that the database has finished adding the data, the program will tell you when it's done on your command line.
@@ -42,3 +40,6 @@ To initialize the citybike database:
 2. `npm install`
 3. `npm run dev`
 
+### Frontend runs on `localhost:5173/` by default
+
+### Backend runs on `localhost:8080/` by default
