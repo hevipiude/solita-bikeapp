@@ -1,7 +1,9 @@
 package src.main.java.com.solita.database;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,10 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import static java.lang.Integer.parseInt;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 
 /**
  *
@@ -27,7 +25,12 @@ public class ImportData {
     static int rowCount = 0;
     static int totalCount = 0;
 
-    public static void main(String[] args) throws SQLException {
+    static String journey1 = "https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv";
+    static String journey2 = "https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv";
+    static String journey3 = "https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv";
+    static String url4 = "https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv";
+
+    public static void main(String[] args) throws SQLException, IOException {
 
         String dbName = "citybike";
         Connection c = CityBikeDB.openConnection();
@@ -35,20 +38,17 @@ public class ImportData {
         CityBikeDB.createStationList(c, dbName);
         CityBikeDB.createS_StationList(c, dbName);
 
-        String csv1 = "seed/2021-05.csv";
-        String csv2 = "seed/2021-06.csv";
-        String csv3 = "seed/2021-06.csv";
-        // this is the bicycle station dataset renamed
-        String csv4 = "seed/stations.csv";
-
-        insertJourneyData(1, csv1, dbName);
-        insertJourneyData(2, csv2, dbName);
-        insertJourneyData(3, csv3, dbName);
-        insertStationData(4, csv4, dbName);
+        insertJourneyData(1, journey1, dbName);
+        insertJourneyData(2, journey2, dbName);
+        insertJourneyData(3, journey3, dbName);
+        insertStationData(4, url4, dbName);
         insertS_StationData(dbName);
 
         System.out.println("\t>> " + totalCount + " rows of valid data added to " + dbName);
         CityBikeDB.closeConnection(c);
+        System.out.println("\t>> --------------------------------------------------------");
+        System.out.println("\t>> Database initialization finished!");
+        System.out.println("\t>> --------------------------------------------------------");
     }
 
     public static boolean isValidDate(String dateStr) {
@@ -112,15 +112,17 @@ public class ImportData {
 
             PreparedStatement statement = c.prepareStatement(sql);
 
-            BufferedReader lineReader = new BufferedReader(new FileReader(path));
-
-            String lineText = "";
             int count = 0;
+            URL oracle = new URL(path);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(oracle.openStream()));
 
-            lineReader.readLine();
-            while ((lineText = lineReader.readLine()) != null) {
+            String inputLine;
 
-                String[] data = lineText.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+            in.readLine();
+            while ((inputLine = in.readLine()) != null) {
+
+                String[] data = inputLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 String departure_time = data[0];
                 String return_time = data[1];
@@ -183,7 +185,7 @@ public class ImportData {
                     }
                 }
             }
-            lineReader.close();
+            in.close();
             statement.executeBatch();
             c.commit();
             c.close();
@@ -214,15 +216,18 @@ public class ImportData {
 
             PreparedStatement statement = c.prepareStatement(sql);
 
-            BufferedReader lineReader = new BufferedReader(new FileReader(path));
+            URL oracle = new URL(path);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(oracle.openStream()));
 
-            String lineText = "";
+            String inputLine;
+
             int count = 0;
 
-            lineReader.readLine();
-            while ((lineText = lineReader.readLine()) != null) {
+            in.readLine();
+            while ((inputLine = in.readLine()) != null) {
 
-                String[] data = lineText.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                String[] data = inputLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 String fid = data[0];
                 String station_id = data[1];
@@ -290,7 +295,7 @@ public class ImportData {
 
             }
 
-            lineReader.close();
+            in.close();
             statement.executeBatch();
             c.commit();
             c.close();
@@ -333,5 +338,4 @@ public class ImportData {
             exception.printStackTrace();
         }
     }
-
 }
