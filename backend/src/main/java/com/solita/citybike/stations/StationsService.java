@@ -25,4 +25,9 @@ public class StationsService {
         Optional<Stations> station = stationsRepository.findById(id);
         return station;
     }
+
+    public SingleStation getSingleStationById(int id) {
+        SingleStation station = stationsRepository.getSingleStationById(id);
+        return station;
+    }
 }

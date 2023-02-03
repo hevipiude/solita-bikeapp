@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 public class StationsController {
 
@@ -25,9 +24,9 @@ public class StationsController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("/singlestation")
-    public Optional<Stations> getStationByID(@RequestParam(defaultValue = "0") int id) {
-        return stationService.getStationsByID(id);
+    @GetMapping("/station")
+    public SingleStation getSingleStationByID(@RequestParam(defaultValue = "0") int id) {
+        return stationService.getSingleStationById(id);
     }
 
 }
