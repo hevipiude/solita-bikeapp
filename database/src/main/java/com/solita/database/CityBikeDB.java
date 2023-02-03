@@ -7,6 +7,8 @@ import java.sql.Statement;
 
 public class CityBikeDB {
 
+    // change the username and password on the next line if you want to use
+    // root instead
     public static String connString = "jdbc:mysql://localhost:3306?user=user&password=password";
 
     public static Connection openConnection() throws SQLException {
