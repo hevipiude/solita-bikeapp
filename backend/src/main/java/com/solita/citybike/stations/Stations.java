@@ -3,7 +3,6 @@ package com.solita.citybike.stations;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-
 @Entity
 public class Stations {
 
@@ -133,4 +132,5 @@ public class Stations {
     public void setY(double y) {
         this.y = y;
     }
+
 }

@@ -36,13 +36,11 @@ public class ImportData {
         Connection c = CityBikeDB.openConnection();
         CityBikeDB.createDatabase(c, dbName);
         CityBikeDB.createStationList(c, dbName);
-        CityBikeDB.createS_StationList(c, dbName);
 
         insertJourneyData(1, journey1, dbName);
         insertJourneyData(2, journey2, dbName);
         insertJourneyData(3, journey3, dbName);
         insertStationData(4, url4, dbName);
-        insertS_StationData(dbName);
 
         System.out.println("\t>> " + totalCount + " rows of valid data added to " + dbName);
         CityBikeDB.closeConnection(c);
@@ -313,29 +311,4 @@ public class ImportData {
         }
     }
 
-    public static void insertS_StationData(String db) {
-
-        try {
-            Connection c = CityBikeDB.openConnection();
-            System.out.println("\t>> Starting to add single station data...");
-            c.setAutoCommit(false);
-            String use = "USE citybike;";
-
-            String sql = "INSERT INTO `citybike`.`s_station`(`id`,`name_fin`,`address_fin`,`departure_count`,`return_count`) with dep as (select journeys.departure_station_id,count(departure_station_id) departure_count from journeys group by departure_station_id), ret as (select journeys.return_station_id,count(return_station_id) return_count from journeys group by return_station_id) select distinct station_id, name_fin, address_fin, departure_count, return_count from stations left join dep on stations.station_id=dep.departure_station_id left join ret on stations.station_id=ret.return_station_id;";
-
-            PreparedStatement useStmt = c.prepareStatement(use);
-            PreparedStatement createStmt = c.prepareStatement(sql);
-
-            useStmt.execute();
-            createStmt.execute();
-            c.commit();
-            c.close();
-            System.out.println("\t>> Data for single stations has been inserted successfully.");
-
-        } catch (
-
-        Exception exception) {
-            exception.printStackTrace();
-        }
-    }
 }

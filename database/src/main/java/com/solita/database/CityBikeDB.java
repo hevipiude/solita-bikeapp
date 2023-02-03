@@ -66,18 +66,4 @@ public class CityBikeDB {
 
         System.out.println("\t>> Table to " + db + " created");
     }
-
-    public static void createS_StationList(Connection c, String db) throws SQLException {
-        c = DriverManager.getConnection(connString);
-        Statement stmt = c.createStatement();
-        stmt.execute("USE " + db);
-
-        System.out.println("\t>> Using database " + db);
-
-        stmt.execute(
-                "CREATE TABLE `s_station` (`id` int NOT NULL, `name_fin` varchar(255) DEFAULT NULL, `address_fin` varchar(255) DEFAULT NULL, `departure_count` int, `return_count` int, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
-
-        System.out.println("\t>> Table to " + db + " created");
-
-    }
 }

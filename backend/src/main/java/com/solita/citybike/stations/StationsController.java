@@ -1,7 +1,5 @@
 package com.solita.citybike.stations;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +23,8 @@ public class StationsController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/station")
-    public SingleStation getSingleStationByID(@RequestParam(defaultValue = "0") int id) {
-        return stationService.getSingleStationById(id);
+    public StationCount getSingleStationByID(@RequestParam(defaultValue = "0") int id) {
+        return stationService.getStationCountById(id);
     }
 
 }

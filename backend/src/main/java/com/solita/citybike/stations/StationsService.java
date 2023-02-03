@@ -26,8 +26,8 @@ public class StationsService {
         return station;
     }
 
-    public SingleStation getSingleStationById(int id) {
-        SingleStation station = stationsRepository.getSingleStationById(id);
+    public StationCount getStationCountById(int id) {
+        StationCount station = stationsRepository.getStationCountById(id);
         return station;
     }
 }
