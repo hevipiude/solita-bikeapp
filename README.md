@@ -1,6 +1,6 @@
 # BikeApp
 
-This project is a (pre-assignment for Solita's Dev Academy)[https://github.com/solita/dev-academy-2023-exercise]. This web application allows you to see data from journeys taken with Helsinki City Bikes in the summer of 2021. You can also scroll through all the stations and also view details of a single station.
+This project is a [pre-assignment for Solita's Dev Academy](https://github.com/solita/dev-academy-2023-exercise). This web application allows you to see data from journeys taken with Helsinki City Bikes in the summer of 2021. You can also scroll through all the stations and also view details of a single station.
 
 This application is split between React frontend and Java Spring backend. React application can be found from `./frontend` and Java Spring server from `./backend`, and a Spring project from `./database` for initializing the database.
 
@@ -24,7 +24,7 @@ Creating the database requires a running mySQL server with an username as `user`
 
 `public static String connString = "jdbc:mysql://localhost:3306?user=user&password=password";`
 
-`ImportData.java` reads the .csv URLs which have been hard coded to the file. These URLs can also be found in (dev-academy-2023-exercise)[https://github.com/solita/dev-academy-2023-exercise].
+`ImportData.java` reads the .csv URLs which have been hard coded to the file. These URLs can also be found in [dev-academy-2023-exercise](https://github.com/solita/dev-academy-2023-exercise).
 
 To initialize the citybike database:
 
