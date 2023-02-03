@@ -2,9 +2,5 @@
   "java.compile.nullAnalysis.mode": "automatic",
   "java.configuration.updateBuildConfiguration": "interactive",
   "java.project.sourcePaths": ["database"],
-  "java.project.referencedLibraries": [
-    "lib/**/*.jar",
-    "/Users/veera/Downloads/mysql-connector-java-8.0.28/**/*.jar",
-    "/Users/veera/Documents/GUI2/lib/mysql-connector-java-8.0.28.jar"
-  ]
+  
 }

@@ -1,4 +1,5 @@
-package init;
+package src.main.java.com.solita.database;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
@@ -9,18 +10,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import static java.lang.Integer.parseInt;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
 
+/**
+ *
+ * @author veera
+ */
 public class ImportData {
-
-    // connection stuff
-    static String jdbcUrl = "jdbc:mysql://localhost:3306/";
-    static String username = "user";
-    static String password = "password";
 
     static DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
     static int notLine = 0;
-    static int i = 0;
-    static int j = 0;
+    static int validLine = 0;
+    static int rowCount = 0;
+    static int totalCount = 0;
 
     public static void main(String[] args) throws SQLException {
 
@@ -30,18 +35,19 @@ public class ImportData {
         CityBikeDB.createStationList(c, dbName);
         CityBikeDB.createS_StationList(c, dbName);
 
-
-        String csv1 = "database/seed/2021-05.csv";
-        String csv2 = "database/seed/2021-06.csv";
-        String csv3 = "database/seed/2021-07.csv";
-        String csv4 = "database/seed/stations.csv";
+        String csv1 = "seed/2021-05.csv";
+        String csv2 = "seed/2021-06.csv";
+        String csv3 = "seed/2021-06.csv";
+        // this is the bicycle station dataset renamed
+        String csv4 = "seed/stations.csv";
 
         insertJourneyData(1, csv1, dbName);
-        insertJourneyData(1, csv2, dbName);
-        insertJourneyData(1, csv3, dbName);
-        insertStationData(2, csv4, dbName);
+        insertJourneyData(2, csv2, dbName);
+        insertJourneyData(3, csv3, dbName);
+        insertStationData(4, csv4, dbName);
         insertS_StationData(dbName);
 
+        System.out.println("\t>> " + totalCount + " rows of valid data added to " + dbName);
         CityBikeDB.closeConnection(c);
     }
 
@@ -93,9 +99,12 @@ public class ImportData {
 
         int batchSize = 100;
         notLine = 0;
+        validLine = 0;
 
         try {
             Connection c = CityBikeDB.openConnection();
+            System.out.println(
+                    "\t>> Starting to insert journey data from .csv file: " + num + "/4 (this might take a while)...");
             c.setAutoCommit(false);
 
             String sql = "INSERT INTO `" + db
@@ -154,12 +163,20 @@ public class ImportData {
                                 statement.setInt(8, dur);
 
                                 statement.addBatch();
-                                i++;
+                                validLine++;
+                                rowCount++;
 
                                 if (count % batchSize == 0) {
                                     statement.executeBatch();
+                                    totalCount++;
                                 }
-                                
+
+                                if (rowCount == 100000) {
+                                    System.out
+                                            .println(
+                                                    "\t\t>> File " + num + "/4: " + rowCount + " new valid rows added");
+                                    rowCount = 0;
+                                }
 
                             }
                         }
@@ -170,13 +187,14 @@ public class ImportData {
             statement.executeBatch();
             c.commit();
             c.close();
-            System.out.println("file " + num + " had " + i + " valid lines");
-            System.out.println("file " + num + " had " + notLine + " invalid lines");
-            System.out.println("Data for journeys has been inserted successfully.");
+            System.out.println("\t>> --------------------------------------------------------");
+            System.out.println("\t>> File " + num + " had " + validLine + " valid lines");
+            System.out.println("\t>> File " + num + " had " + notLine + " invalid lines");
+            System.out.println("\t>> Data for file " + num + "/4 has been inserted successfully.");
+            System.out.println("\t>> --------------------------------------------------------");
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            System.out.println(i);
         }
     }
 
@@ -184,9 +202,12 @@ public class ImportData {
 
         int batchSize = 100;
         notLine = 0;
+        validLine = 0;
 
         try {
             Connection c = CityBikeDB.openConnection();
+            System.out.println(
+                    "\t>> Starting to insert station data from .csv file: " + num + "/4 (this might take a while)...");
             c.setAutoCommit(false);
 
             String sql = "INSERT INTO `citybike`.`stations`(`fid`,`station_id`,`name_fin`,`name_swe`,`name_eng`,`address_fin`,`address_swe`,`city_fin`,`city_swe`,`operator`,`capacity`,`x`,`y`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -251,10 +272,16 @@ public class ImportData {
                         statement.setDouble(13, n_y);
 
                         statement.addBatch();
-                        j++;
+                        validLine++;
 
                         if (count % batchSize == 0) {
                             statement.executeBatch();
+                            totalCount++;
+                        }
+
+                        if (rowCount == 100000) {
+                            System.out.println("\t\t>> File " + num + "/4: " + rowCount + " new valid rows added");
+                            rowCount = 0;
                         }
 
                     }
@@ -267,21 +294,25 @@ public class ImportData {
             statement.executeBatch();
             c.commit();
             c.close();
-            System.out.println("file " + num + " had " + j + " valid lines");
-            System.out.println("file " + num + " had " + notLine + " invalid lines");
-            System.out.println("Data for stations has been inserted successfully.");
+
+            System.out.println("\t>> --------------------------------------------------------");
+            System.out.println("\t>> File " + num + " had " + validLine + " valid lines");
+            System.out.println("\t>> File " + num + " had " + notLine + " invalid lines");
+            System.out.println("\t>> Data for file " + num + "/4 has been inserted successfully.");
+            System.out.println("\t>> --------------------------------------------------------");
 
         } catch (
 
         Exception exception) {
             exception.printStackTrace();
-            System.out.println(i);
         }
     }
 
     public static void insertS_StationData(String db) {
+
         try {
             Connection c = CityBikeDB.openConnection();
+            System.out.println("\t>> Starting to add single station data...");
             c.setAutoCommit(false);
             String use = "USE citybike;";
 
@@ -294,13 +325,13 @@ public class ImportData {
             createStmt.execute();
             c.commit();
             c.close();
-            System.out.println("Data for single stations has been inserted successfully.");
+            System.out.println("\t>> Data for single stations has been inserted successfully.");
 
         } catch (
 
         Exception exception) {
             exception.printStackTrace();
-            System.out.println(i);
         }
     }
+
 }
