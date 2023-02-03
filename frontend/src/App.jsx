@@ -13,7 +13,6 @@ function App() {
           <Routes>
             <Route path='/journeys' element={<JourneyTable />} />
             <Route path='/stations' element={<StationTable />} />
-            <Route path='/s_station' element={<StationDetails />} />
           </Routes>
         </div>
       </Router>
