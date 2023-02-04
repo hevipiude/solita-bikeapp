@@ -8,6 +8,8 @@ const usePaginatedData = (route) => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     axios
       .get(
@@ -16,6 +18,7 @@ const usePaginatedData = (route) => {
       .then((res) => {
         setContent(res.data.content)
         setCount(res.data.totalElements)
+        setLoading(false)
       })
       .catch((err) => console.error(err))
   }, [page, rowsPerPage])
@@ -31,6 +34,7 @@ const usePaginatedData = (route) => {
 
   return {
     content,
+    loading,
     paginationProps: {
       component: 'div',
       rowsPerPageOptions: [5, 10, 25],
