@@ -12,6 +12,7 @@ const usePaginatedData = (route) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    setLoading(true)
     axios
       .get(
         `http://localhost:8080/${route}?pageNumber=${page}&pageSize=${rowsPerPage}&sort=${sort}&order=${order}`
@@ -55,6 +56,7 @@ const usePaginatedData = (route) => {
     },
     sortingProps: {
       sort,
+      order,
       onSortChange,
       onOrderChange,
     },

@@ -55,7 +55,6 @@ function JourneyTable() {
   const handleRequestSort = (_, property) => {
     const isAsc = orderBy === property && order === 'asc'
     setOrder(isAsc ? 'desc' : 'asc')
-    console.log(isAsc)
     setOrderBy(property)
     sortingProps.onSortChange(property)
     sortingProps.onOrderChange(order)
@@ -112,7 +111,7 @@ function JourneyTable() {
                     <TableCell>{row.departureStationName}</TableCell>
                     <TableCell>{row.returnStationName}</TableCell>
                     <TableCell>{metersToKilometers(row.distance)}</TableCell>
-                    <TableCell>{secondsToMinutes(row.duration)}</TableCell>
+                    <TableCell>{secondsToMinutes(row.duration)} min</TableCell>
                   </TableRow>
                 ))}
           </TableBody>
