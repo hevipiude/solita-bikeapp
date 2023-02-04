@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 
 const usePaginatedData = (route) => {
   const [content, setContent] = useState([])
-
+  const [sort, setSort] = useState('')
+  const [order, setOrder] = useState('')
   const [count, setCount] = useState(0)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
@@ -13,7 +14,7 @@ const usePaginatedData = (route) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8080/${route}?pageNumber=${page}&pageSize=${rowsPerPage}`
+        `http://localhost:8080/${route}?pageNumber=${page}&pageSize=${rowsPerPage}&sort=${sort}&order=${order}`
       )
       .then((res) => {
         setContent(res.data.content)
@@ -21,7 +22,7 @@ const usePaginatedData = (route) => {
         setLoading(false)
       })
       .catch((err) => console.error(err))
-  }, [page, rowsPerPage])
+  }, [page, rowsPerPage, sort, order])
 
   const onPageChange = (_, newPage) => {
     setPage(newPage)
@@ -30,6 +31,14 @@ const usePaginatedData = (route) => {
   const onRowsPerPageChange = (event) => {
     setRowsPerPage(event.target.value)
     setPage(0)
+  }
+
+  const onSortChange = (newSort) => {
+    setSort(newSort)
+  }
+
+  const onOrderChange = (newOrder) => {
+    setOrder(newOrder)
   }
 
   return {
@@ -43,6 +52,11 @@ const usePaginatedData = (route) => {
       page,
       onPageChange,
       onRowsPerPageChange,
+    },
+    sortingProps: {
+      sort,
+      onSortChange,
+      onOrderChange,
     },
   }
 }

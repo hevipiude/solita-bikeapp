@@ -9,10 +9,57 @@ import {
   Skeleton,
   Paper,
 } from '@mui/material'
+import { useState } from 'react'
 import usePaginatedData from '../utils/usePaginatedData'
+import SortTableHead from './SortTableHead'
+
+const headCells = [
+  {
+    id: 'ID',
+    numeric: false,
+    disablePadding: true,
+    label: 'ID',
+  },
+  {
+    id: 'departureStationName',
+    numeric: true,
+    disablePadding: false,
+    label: 'Lähtöasema',
+  },
+  {
+    id: 'returnStationName',
+    numeric: true,
+    disablePadding: false,
+    label: 'Määränpää',
+  },
+  {
+    id: 'distance',
+    numeric: true,
+    disablePadding: false,
+    label: 'Matka',
+  },
+  {
+    id: 'duration',
+    numeric: true,
+    disablePadding: false,
+    label: 'Kesto',
+  },
+]
 
 function JourneyTable() {
-  const { content, loading, paginationProps } = usePaginatedData('')
+  const [order, setOrder] = useState('asc')
+  const [orderBy, setOrderBy] = useState('nameFin')
+  const { content, loading, paginationProps, sortingProps } =
+    usePaginatedData('')
+
+  const handleRequestSort = (_, property) => {
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    console.log(isAsc)
+    setOrderBy(property)
+    sortingProps.onSortChange(property)
+    sortingProps.onOrderChange(order)
+  }
 
   const secondsToMinutes = (seconds) =>
     Math.floor(seconds / 60) + ':' + ('0' + Math.floor(seconds % 60)).slice(-2)
@@ -27,47 +74,47 @@ function JourneyTable() {
   const skeletonArray = Array(paginationProps.rowsPerPage).fill('')
 
   return (
-    <Paper sx={{ px: 4, py: 4 }}>
+    <Paper>
       <TableContainer>
         <Table>
           <TableBody>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Lähtöasema</TableCell>
-              <TableCell>Saapumisasema</TableCell>
-              <TableCell>Matka</TableCell>
-              <TableCell>Aika</TableCell>
-            </TableRow>
-            {loading &&
-              skeletonArray.map((_, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                </TableRow>
-              ))}
-            {content &&
-              content.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.id}</TableCell>
-                  <TableCell>{row.departure_station_name}</TableCell>
-                  <TableCell>{row.return_station_name}</TableCell>
-                  <TableCell>{metersToKilometers(row.distance)}</TableCell>
-                  <TableCell>{secondsToMinutes(row.duration)}</TableCell>
-                </TableRow>
-              ))}
+            <SortTableHead
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              rowCount={content.length}
+              headCells={headCells}
+            />
+            {loading
+              ? skeletonArray.map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                  </TableRow>
+                ))
+              : content &&
+                content.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell>{row.id}</TableCell>
+                    <TableCell>{row.departureStationName}</TableCell>
+                    <TableCell>{row.returnStationName}</TableCell>
+                    <TableCell>{metersToKilometers(row.distance)}</TableCell>
+                    <TableCell>{secondsToMinutes(row.duration)}</TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
       </TableContainer>

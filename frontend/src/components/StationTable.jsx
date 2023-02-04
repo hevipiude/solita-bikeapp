@@ -13,9 +13,55 @@ import {
 } from '@mui/material'
 import StationDetails from './StationDetails'
 import usePaginatedData from '../utils/usePaginatedData'
+import SortTableHead from './SortTableHead'
+
+const headCells = [
+  {
+    id: 'nameFin',
+    numeric: false,
+    disablePadding: true,
+    label: 'Nimi',
+  },
+  {
+    id: 'addressFin',
+    numeric: true,
+    disablePadding: false,
+    label: 'Osoite',
+  },
+  {
+    id: 'cityFin',
+    numeric: true,
+    disablePadding: false,
+    label: 'Kaupunki',
+  },
+  {
+    id: 'operator',
+    numeric: true,
+    disablePadding: false,
+    label: 'Operaattori',
+  },
+  {
+    id: 'capacity',
+    numeric: true,
+    disablePadding: false,
+    label: 'Kapasiteetti',
+  },
+]
 
 function StationTable() {
-  const { content, loading, paginationProps } = usePaginatedData('stations')
+  const [order, setOrder] = useState('asc')
+  const [orderBy, setOrderBy] = useState('nameFin')
+  const { content, loading, paginationProps, sortingProps } =
+    usePaginatedData('stations')
+
+  const handleRequestSort = (_, property) => {
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    console.log(isAsc)
+    setOrderBy(property)
+    sortingProps.onSortChange(property)
+    sortingProps.onOrderChange(order)
+  }
 
   const ExpandableTableRow = ({ children, expandComponent }) => {
     const [isExpanded, setIsExpanded] = useState(false)
@@ -44,50 +90,51 @@ function StationTable() {
   const skeletonArray = Array(paginationProps.rowsPerPage).fill('')
 
   return (
-    <Paper sx={{ px: 4, py: 4 }}>
+    <Paper>
       <TableContainer>
         <Table>
           <TableBody>
-            <TableRow>
-              <TableCell>Nimi</TableCell>
-              <TableCell>Osoite</TableCell>
-              <TableCell>Kaupunki</TableCell>
-              <TableCell>Operaattori</TableCell>
-              <TableCell>Kapasiteetti</TableCell>
-              <TableCell>Lisätietoja</TableCell>
-            </TableRow>
-            {loading &&
-              skeletonArray.map((_, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                  </TableCell>
-                </TableRow>
-              ))}
-            {content &&
-              content.map((row) => (
-                <ExpandableTableRow
-                  key={row.name_fin}
-                  expandComponent={<StationDetails row={row}></StationDetails>}>
-                  <TableCell>{row.name_fin}</TableCell>
-                  <TableCell>{row.address_fin}</TableCell>
-                  <TableCell>{row.city_fin}</TableCell>
-                  <TableCell>{row.operator}</TableCell>
-                  <TableCell>{row.capacity}</TableCell>
-                </ExpandableTableRow>
-              ))}
+            <SortTableHead
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              rowCount={content.length}
+              headCells={headCells}
+              extra='Lisätietoja'
+            />
+            {loading
+              ? skeletonArray.map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton />
+                    </TableCell>
+                  </TableRow>
+                ))
+              : content.map((row) => (
+                  <ExpandableTableRow
+                    key={row.nameFin}
+                    expandComponent={
+                      <StationDetails row={row}></StationDetails>
+                    }>
+                    <TableCell>{row.nameFin}</TableCell>
+                    <TableCell>{row.addressFin}</TableCell>
+                    <TableCell>{row.cityFin}</TableCell>
+                    <TableCell>{row.operator}</TableCell>
+                    <TableCell>{row.capacity}</TableCell>
+                  </ExpandableTableRow>
+                ))}
           </TableBody>
         </Table>
       </TableContainer>

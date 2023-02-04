@@ -8,7 +8,7 @@ function StationDetails({ row }) {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/station?id=${row.station_id}`)
+      .get(`http://localhost:8080/station?id=${row.stationId}`)
       .then((res) => {
         setStation(res.data)
         setLoading(false)
@@ -58,11 +58,11 @@ function StationDetails({ row }) {
           <Paper sx={{ px: 8, py: 8 }}>
             <Box>
               <p>
-                Asema: {station?.name_fin} {station?.station_id}
+                Asema: {station?.nameFin} {station?.stationId}
               </p>
-              <p>Osoite: {station?.address_fin}</p>
-              <p>Lähtevien matkojen lukumäärä: {station?.departure_count}</p>
-              <p>Saapuvien matkojen lukumäärä: {station?.return_count}</p>
+              <p>Osoite: {station?.addressFin}</p>
+              <p>Lähtevien matkojen lukumäärä: {station?.departureCount}</p>
+              <p>Saapuvien matkojen lukumäärä: {station?.returnCount}</p>
             </Box>
           </Paper>
 
