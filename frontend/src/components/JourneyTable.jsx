@@ -6,11 +6,13 @@ import {
   TableContainer,
   TableRow,
   TablePagination,
+  Skeleton,
+  Paper,
 } from '@mui/material'
 import usePaginatedData from '../utils/usePaginatedData'
 
 function JourneyTable() {
-  const { content, paginationProps } = usePaginatedData('journeys')
+  const { content, loading, paginationProps } = usePaginatedData('')
 
   const secondsToMinutes = (seconds) =>
     Math.floor(seconds / 60) + ':' + ('0' + Math.floor(seconds % 60)).slice(-2)
@@ -22,8 +24,10 @@ function JourneyTable() {
       maximumFractionDigits: 2,
     }).format(meters / 1000)
 
+  const skeletonArray = Array(paginationProps.rowsPerPage).fill('')
+
   return (
-    <Box>
+    <Paper sx={{ px: 4, py: 4 }}>
       <TableContainer>
         <Table>
           <TableBody>
@@ -34,22 +38,43 @@ function JourneyTable() {
               <TableCell>Matka</TableCell>
               <TableCell>Aika</TableCell>
             </TableRow>
-            {content.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.departure_station_name}</TableCell>
-                <TableCell>{row.return_station_name}</TableCell>
-                <TableCell>{metersToKilometers(row.distance)}</TableCell>
-                <TableCell>{secondsToMinutes(row.duration)}</TableCell>
-              </TableRow>
-            ))}
+            {loading &&
+              skeletonArray.map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton />
+                  </TableCell>
+                </TableRow>
+              ))}
+            {content &&
+              content.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell>{row.id}</TableCell>
+                  <TableCell>{row.departure_station_name}</TableCell>
+                  <TableCell>{row.return_station_name}</TableCell>
+                  <TableCell>{metersToKilometers(row.distance)}</TableCell>
+                  <TableCell>{secondsToMinutes(row.duration)}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
       <Box>
         <TablePagination {...paginationProps} />
       </Box>
-    </Box>
+    </Paper>
   )
 }
 
