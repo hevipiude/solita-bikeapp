@@ -9,21 +9,21 @@ public class Stations {
     @Id
     private int fid;
 
-    private int station_id;
+    private int stationId;
 
-    private String name_fin;
+    private String nameFin;
 
-    private String name_swe;
+    private String nameSwe;
 
-    private String name_eng;
+    private String nameEng;
 
-    private String address_fin;
+    private String addressFin;
 
-    private String address_swe;
+    private String addressSwe;
 
-    private String city_fin;
+    private String cityFin;
 
-    private String city_swe;
+    private String citySwe;
 
     private String operator;
 
@@ -37,36 +37,36 @@ public class Stations {
         return fid;
     }
 
-    public int getStation_id() {
-        return station_id;
+    public int getStationId() {
+        return stationId;
     }
 
-    public String getName_fin() {
-        return name_fin;
+    public String getNameFin() {
+        return nameFin;
     }
 
-    public String getName_swe() {
-        return name_swe;
+    public String getNameSwe() {
+        return nameSwe;
     }
 
-    public String getName_eng() {
-        return name_eng;
+    public String getNameEng() {
+        return nameEng;
     }
 
-    public String getAddress_fin() {
-        return address_fin;
+    public String getAddressFin() {
+        return addressFin;
     }
 
-    public String getAddress_swe() {
-        return address_swe;
+    public String getAddressSwe() {
+        return addressSwe;
     }
 
-    public String getCity_fin() {
-        return city_fin;
+    public String getCityFin() {
+        return cityFin;
     }
 
-    public String getCity_swe() {
-        return city_swe;
+    public String getCitySwe() {
+        return citySwe;
     }
 
     public String getOperator() {
@@ -85,36 +85,36 @@ public class Stations {
         return y;
     }
 
-    public void setStation_id(int station_id) {
-        this.station_id = station_id;
+    public void setStationId(int stationId) {
+        this.stationId = stationId;
     }
 
-    public void setName_fin(String name_fin) {
-        this.name_fin = name_fin;
+    public void setNameFin(String nameFin) {
+        this.nameFin = nameFin;
     }
 
-    public void setName_swe(String name_swe) {
-        this.name_swe = name_swe;
+    public void setNameSwe(String nameSwe) {
+        this.nameSwe = nameSwe;
     }
 
-    public void setName_eng(String name_eng) {
-        this.name_eng = name_eng;
+    public void setNameEng(String nameEng) {
+        this.nameEng = nameEng;
     }
 
-    public void setAddress_fin(String address_fin) {
-        this.address_fin = address_fin;
+    public void setAddressFin(String addressFin) {
+        this.addressFin = addressFin;
     }
 
-    public void setAddress_swe(String address_swe) {
-        this.address_swe = address_swe;
+    public void setAddressSwe(String addressSwe) {
+        this.addressSwe = addressSwe;
     }
 
-    public void setCity_fin(String city_fin) {
-        this.city_fin = city_fin;
+    public void setCityFin(String cityFin) {
+        this.cityFin = cityFin;
     }
 
-    public void setCity_swe(String city_swe) {
-        this.city_swe = city_swe;
+    public void setCitySwe(String citySwe) {
+        this.citySwe = citySwe;
     }
 
     public void setOperator(String operator) {

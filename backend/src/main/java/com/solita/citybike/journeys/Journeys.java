@@ -13,17 +13,17 @@ public class Journeys {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
-    private Timestamp departure_time;
+    private Timestamp departureTime;
 
-    private Timestamp return_time;
+    private Timestamp returnTime;
 
-    private Integer departure_station_id;
+    private Integer departureStationId;
 
-    private String departure_station_name;
+    private String departureStationName;
 
-    private Integer return_station_id;
+    private Integer returnStationId;
 
-    private String return_station_name;
+    private String returnStationName;
 
     private Integer distance;
 
@@ -33,28 +33,28 @@ public class Journeys {
         return ID;
     }
 
-    public Timestamp getDeparture_time() {
-        return departure_time;
+    public Timestamp getDepartureTime() {
+        return departureTime;
     }
 
-    public Timestamp getReturn_time() {
-        return return_time;
+    public Timestamp getReturnTime() {
+        return returnTime;
     }
 
-    public Integer getDeparture_station_id() {
-        return departure_station_id;
+    public Integer getDepartureStationId() {
+        return departureStationId;
     }
 
-    public String getDeparture_station_name() {
-        return departure_station_name;
+    public String getDepartureStationName() {
+        return departureStationName;
     }
 
-    public Integer getReturn_station_id() {
-        return return_station_id;
+    public Integer getReturnStationId() {
+        return returnStationId;
     }
 
-    public String getReturn_station_name() {
-        return return_station_name;
+    public String getReturnStationName() {
+        return returnStationName;
     }
 
     public Integer getDistance() {
@@ -65,28 +65,28 @@ public class Journeys {
         return duration;
     }
 
-    public void setDeparture_time(Timestamp departure_time) {
-        this.departure_time = departure_time;
+    public void setDepartureTime(Timestamp departureTime) {
+        this.departureTime = departureTime;
     }
 
-    public void setReturn_time(Timestamp return_time) {
-        this.return_time = return_time;
+    public void setReturnTime(Timestamp returnTime) {
+        this.returnTime = returnTime;
     }
 
-    public void setDeparture_station_id(Integer departure_station_id) {
-        this.departure_station_id = departure_station_id;
+    public void setDepartureStationId(Integer departureStationId) {
+        this.departureStationId = departureStationId;
     }
 
-    public void setDeparture_station_name(String departure_station_name) {
-        this.departure_station_name = departure_station_name;
+    public void setDepartureStationName(String departureStationName) {
+        this.departureStationName = departureStationName;
     }
 
-    public void setReturn_station_id(Integer return_station_id) {
-        this.return_station_id = return_station_id;
+    public void setReturnStationId(Integer returnStationId) {
+        this.returnStationId = returnStationId;
     }
 
-    public void setReturn_station_name(String return_station_name) {
-        this.return_station_name = return_station_name;
+    public void setReturnStationName(String returnStationName) {
+        this.returnStationName = returnStationName;
     }
 
     public void setDistance(Integer distance) {

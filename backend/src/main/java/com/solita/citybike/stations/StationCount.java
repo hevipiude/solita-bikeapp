@@ -2,34 +2,34 @@ package com.solita.citybike.stations;
 
 public interface StationCount {
 
-    int getFid();
+    Integer getFid();
 
-    int getStation_id();
+    Integer getStationId();
 
-    String getName_fin();
+    String getNameFin();
 
-    String getName_swe();
+    String getNameSwe();
 
-    String getName_eng();
+    String getNameEng();
 
-    String getAddress_fin();
+    String getAddressFin();
 
-    String getAddress_swe();
+    String getAddressSwe();
 
-    String getCity_fin();
+    String getCityFin();
 
-    String getCity_swe();
+    String getCitySwe();
 
     String getOperator();
 
-    int getCapacity();
+    Integer getCapacity();
 
     double getX();
 
     double getY();
 
-    long getDeparture_count();
+    Integer getDepartureCount();
 
-    long getReturn_count();
+    Integer getReturnCount();
 
 }

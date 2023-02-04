@@ -2,7 +2,6 @@ package com.solita.citybike.journeys;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +15,9 @@ public class JourneysController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/")
-    public Page<Journeys> getPagedStations(@RequestParam(defaultValue = "0") Integer pageNumber,
-            @RequestParam(defaultValue = "100") Integer pageSize, Pageable pageable) {
-        return journeyService.getJourneysByPagination(pageNumber, pageSize);
+    public Page<Journeys> getPagedSortedJourneys(@RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "departureStationName") String sort, @RequestParam(defaultValue = "des") String order) {
+        return journeyService.getJourneysByPageSort(pageNumber, pageSize, sort, order);
     }
 }
