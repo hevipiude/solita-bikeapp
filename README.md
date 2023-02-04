@@ -40,6 +40,6 @@ To initialize the citybike database:
 2. `npm install`
 3. `npm run dev`
 
-### Frontend runs on `localhost:5173/` by default
+#### Frontend runs on `localhost:5173/` by default
 
-### Backend runs on `localhost:8080/` by default
+#### Backend runs on `localhost:8080/` by default
