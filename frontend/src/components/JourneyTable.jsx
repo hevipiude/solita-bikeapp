@@ -15,12 +15,6 @@ import SortTableHead from './SortTableHead'
 
 const headCells = [
   {
-    id: 'ID',
-    numeric: false,
-    disablePadding: true,
-    label: 'ID',
-  },
-  {
     id: 'departureStationName',
     numeric: true,
     disablePadding: false,
@@ -99,15 +93,11 @@ function JourneyTable() {
                     <TableCell>
                       <Skeleton />
                     </TableCell>
-                    <TableCell>
-                      <Skeleton />
-                    </TableCell>
                   </TableRow>
                 ))
               : content &&
                 content.map((row) => (
                   <TableRow key={row.id}>
-                    <TableCell>{row.id}</TableCell>
                     <TableCell>{row.departureStationName}</TableCell>
                     <TableCell>{row.returnStationName}</TableCell>
                     <TableCell>{metersToKilometers(row.distance)}</TableCell>
