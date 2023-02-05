@@ -58,7 +58,7 @@ function StationDetails({ row }) {
             px: 2,
             py: 2,
           }}>
-          <Paper sx={{ px: 8, py: 8, mr: 4 }} maxWidth={360}>
+          <Paper sx={{ px: 8, py: 8, mr: 4 }} maxwidth={360}>
             <Box>
               <p>
                 Asema: {station?.nameFin} {station?.stationId}
