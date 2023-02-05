@@ -4,15 +4,42 @@ This project is a [pre-assignment for Solita's Dev Academy](https://github.com/s
 
 This application is split between React frontend and Java Spring backend. React application can be found from `./frontend` and Java Spring server from `./backend`, and a Spring project from `./database` for initializing the database.
 
+## Features:
+
+### Data import:
+
+Validated data is imported from CSV to a MySQL database.
+
+#### Validation:
+
+- Data is validated by correct formats for dates, integers, doubles and strings.
+- Journeys that last under 10 seconds, and cover distances shorter than 10 meters were not imported.
+
+### Journey list view:
+
+- Paginated data of journeys is listed in a table component, in which you can choose the amount of rows shown on a page.
+
+- For every journey, table component shows departure and return stations, covered distance in kilometers and duration in minutes.
+
+- Paginated data can be ordered by a single column in ascending or descending order.
+
+### Station list view:
+
+- Paginated data of stations is listed in a table component, in which you can choose the amount of rows shown on a page.
+
+- For every station, table component shows the stations name and address, the city and operator (if provided in the original CSV files, otherwise these table cells are left blank), and the capacity for the station.
+
+- By clicking the "Näytä"-button, the app shows details of the station, such as stations name, id, address, a map with a marker pointing at the location of the station, and total numbers of journeys starting from and ending at on the selected station.
+
 ## Instructions for local running:
 
 ### For running the backend and database files you should have:
 
 These versions have been tested, other versions of the following ones could work too.
 
-Java JDK version: 17.0.6
-Apache Maven 3.8.7
-MySQL 8.0.25
+- **Java JDK version: 17.0.6**
+- **Apache Maven 3.8.7**
+- **MySQL 8.0.25**
 
 ### Database
 
@@ -40,6 +67,6 @@ To initialize the citybike database:
 2. `npm install`
 3. `npm run dev`
 
-#### Frontend runs on `localhost:5173/` by default
+#### Frontend runs on `localhost:5173` by default
 
-#### Backend runs on `localhost:8080/` by default
+#### Backend runs on `localhost:8080` by default
