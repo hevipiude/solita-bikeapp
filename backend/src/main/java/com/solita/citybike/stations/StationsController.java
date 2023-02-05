@@ -31,7 +31,7 @@ public class StationsController {
     @GetMapping("/stations")
     public Page<Stations> getPagedSortedStations(@RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "stationId") String sort, @RequestParam(defaultValue = "des") String order) {
+            @RequestParam(defaultValue = "nameFin") String sort, @RequestParam(defaultValue = "des") String order) {
         return stationService.getStationsByPageSort(pageNumber, pageSize, sort, order);
     }
 
