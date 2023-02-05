@@ -90,7 +90,7 @@ function StationTable() {
   const skeletonArray = Array(paginationProps.rowsPerPage).fill('')
 
   return (
-    <Paper>
+    <Paper sx={{ px: 4, py: 4 }}>
       <TableContainer>
         <Table>
           <TableBody>

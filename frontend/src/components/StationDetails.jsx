@@ -20,8 +20,11 @@ function StationDetails({ row }) {
     <div>
       {loading && (
         <Box sx={{ display: 'flex' }}>
-          <Box sx={{ flexGrow: 2, justifyContent: 'space-between' }}>
-            <Paper sx={{ px: 8, py: 8, m: 2 }}>
+          <Box
+            sx={{ flexGrow: 2, justifyContent: 'space-between' }}
+            minWidth={360}
+            height={280}>
+            <Paper sx={{ px: 8, py: 8, m: 2, flexShrink: 0 }}>
               <p>
                 <Skeleton />
               </p>
@@ -39,9 +42,9 @@ function StationDetails({ row }) {
 
           <Box>
             <Skeleton
-              sx={{ m: 2 }}
-              variant='rounded'
-              width={440}
+              sx={{ m: 2, width: '100%' }}
+              variant='rectangular'
+              width={800}
               height={280}
             />
           </Box>
@@ -55,7 +58,7 @@ function StationDetails({ row }) {
             px: 2,
             py: 2,
           }}>
-          <Paper sx={{ px: 8, py: 8 }}>
+          <Paper sx={{ px: 8, py: 8, mr: 4 }} maxWidth={360}>
             <Box>
               <p>
                 Asema: {station?.nameFin} {station?.stationId}
@@ -65,9 +68,11 @@ function StationDetails({ row }) {
               <p>Saapuvien matkojen lukumäärä: {station?.returnCount}</p>
             </Box>
           </Paper>
-
-          <Box sx={{ px: 2, py: 4 }} />
-          <CustomMap y={station?.y} x={station?.x} />
+          <CustomMap
+            sx={{ width: '100%', px: 2 }}
+            y={station?.y}
+            x={station?.x}
+          />
         </Box>
       )}
     </div>
