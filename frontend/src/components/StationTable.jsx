@@ -13,7 +13,10 @@ import {
 } from '@mui/material'
 import StationDetails from './StationDetails'
 import usePaginatedData from '../utils/usePaginatedData'
-import SortTableHead from './SortTableHead'
+import SortTableHead from './custom/SortTableHead'
+import StyledTableRow from './custom/StyledTableRow'
+import { theme } from '../themes/theme'
+import ExpandableTableRow from './custom/ExpandableTableRow'
 
 const headCells = [
   {
@@ -49,7 +52,7 @@ const headCells = [
 ]
 
 function StationTable() {
-  const [order, setOrder] = useState('asc')
+  const [order, setOrder] = useState('desc')
   const [orderBy, setOrderBy] = useState('nameFin')
   const { content, loading, paginationProps, sortingProps } =
     usePaginatedData('stations')
@@ -63,35 +66,11 @@ function StationTable() {
     console.log(order)
   }
 
-  const ExpandableTableRow = ({ children, expandComponent }) => {
-    const [isExpanded, setIsExpanded] = useState(false)
-
-    return (
-      <>
-        <TableRow>
-          {children}
-          <TableCell padding='checkbox'>
-            <Button
-              variant='contained'
-              onClick={() => setIsExpanded(!isExpanded)}>
-              {isExpanded ? 'piilota' : 'näytä'}
-            </Button>
-          </TableCell>
-        </TableRow>
-        {isExpanded && (
-          <TableRow>
-            <TableCell colSpan={6}>{expandComponent}</TableCell>
-          </TableRow>
-        )}
-      </>
-    )
-  }
-
   const skeletonArray = Array(paginationProps.rowsPerPage).fill('')
 
   return (
     <Paper sx={{ px: 4, py: 4 }}>
-      <TableContainer>
+      <TableContainer component={Paper}>
         <Table>
           <TableBody>
             <SortTableHead
@@ -128,6 +107,7 @@ function StationTable() {
                     expandComponent={
                       <StationDetails row={row}></StationDetails>
                     }>
+                    {console.log(row.nameFin)}
                     <TableCell>{row.nameFin}</TableCell>
                     <TableCell>{row.addressFin}</TableCell>
                     <TableCell>{row.cityFin}</TableCell>
@@ -137,10 +117,10 @@ function StationTable() {
                 ))}
           </TableBody>
         </Table>
+        <Box>
+          <TablePagination {...paginationProps} />
+        </Box>
       </TableContainer>
-      <Box>
-        <TablePagination {...paginationProps} />
-      </Box>
     </Paper>
   )
 }

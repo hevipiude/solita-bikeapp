@@ -1,6 +1,8 @@
 import { Box, TableCell, TableRow, TableSortLabel } from '@mui/material'
 import PropTypes from 'prop-types'
 import { visuallyHidden } from '@mui/utils'
+import StyledTableRow from './StyledTableRow'
+import { theme } from '../../themes/theme'
 
 export default function SortTableHead(props) {
   const { order, orderBy, onRequestSort, headCells, extra } = props
@@ -10,7 +12,7 @@ export default function SortTableHead(props) {
   }
 
   return (
-    <TableRow>
+    <StyledTableRow styled={theme}>
       {headCells.map((headCell) => (
         <TableCell
           key={headCell.id}
@@ -29,7 +31,7 @@ export default function SortTableHead(props) {
         </TableCell>
       ))}
       {extra ? <TableCell>{extra}</TableCell> : ''}
-    </TableRow>
+    </StyledTableRow>
   )
 }
 

@@ -5,7 +5,11 @@ function CustomMap({ y, x }) {
   const color = '#e57373'
 
   return (
-    <Map width={800} height={280} defaultCenter={position} defaultZoom={16}>
+    <Map
+      sx={{ width: '100%' }}
+      height={280}
+      defaultCenter={position}
+      defaultZoom={16}>
       <ZoomControl />
       <Marker color={color} width={40} anchor={position} />
     </Map>

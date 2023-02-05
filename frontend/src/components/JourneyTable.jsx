@@ -10,8 +10,10 @@ import {
   Paper,
 } from '@mui/material'
 import { useState } from 'react'
+import { theme } from '../themes/theme'
 import usePaginatedData from '../utils/usePaginatedData'
-import SortTableHead from './SortTableHead'
+import SortTableHead from './custom/SortTableHead'
+import StyledTableRow from './custom/StyledTableRow'
 
 const headCells = [
   {
@@ -41,8 +43,8 @@ const headCells = [
 ]
 
 function JourneyTable() {
-  const [order, setOrder] = useState('asc')
-  const [orderBy, setOrderBy] = useState('nameFin')
+  const [order, setOrder] = useState('desc')
+  const [orderBy, setOrderBy] = useState('departureStationName')
   const { content, loading, paginationProps, sortingProps } =
     usePaginatedData('')
 
@@ -68,7 +70,7 @@ function JourneyTable() {
 
   return (
     <Paper sx={{ px: 4, py: 4 }}>
-      <TableContainer>
+      <TableContainer component={Paper}>
         <Table>
           <TableBody>
             <SortTableHead
@@ -80,7 +82,7 @@ function JourneyTable() {
             />
             {loading
               ? skeletonArray.map((_, index) => (
-                  <TableRow key={index}>
+                  <StyledTableRow styled={'theme'} key={index}>
                     <TableCell>
                       <Skeleton />
                     </TableCell>
@@ -93,23 +95,23 @@ function JourneyTable() {
                     <TableCell>
                       <Skeleton />
                     </TableCell>
-                  </TableRow>
+                  </StyledTableRow>
                 ))
               : content &&
                 content.map((row) => (
-                  <TableRow key={row.id}>
+                  <StyledTableRow styled={theme} key={row.id}>
                     <TableCell>{row.departureStationName}</TableCell>
                     <TableCell>{row.returnStationName}</TableCell>
                     <TableCell>{metersToKilometers(row.distance)}</TableCell>
                     <TableCell>{secondsToMinutes(row.duration)} min</TableCell>
-                  </TableRow>
+                  </StyledTableRow>
                 ))}
           </TableBody>
-        </Table>
+        </Table>{' '}
+        <Box>
+          <TablePagination {...paginationProps} />
+        </Box>
       </TableContainer>
-      <Box>
-        <TablePagination {...paginationProps} />
-      </Box>
     </Paper>
   )
 }

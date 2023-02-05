@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Box, Container, Paper, Skeleton } from '@mui/material'
-import CustomMap from './CustomMap'
+import CustomMap from './custom/CustomMap'
 
 function StationDetails({ row }) {
   const [station, setStation] = useState()
@@ -19,34 +19,26 @@ function StationDetails({ row }) {
   return (
     <div>
       {loading && (
-        <Box sx={{ display: 'flex' }}>
-          <Box
-            sx={{ flexGrow: 2, justifyContent: 'space-between' }}
-            minWidth={360}
-            height={280}>
-            <Paper sx={{ px: 8, py: 8, m: 2, flexShrink: 0 }}>
+        <Box sx={{ display: 'flex', width: '100%' }}>
+          <Box sx={{ mr: 2 }}>
+            <Paper sx={{ px: 8, py: 8, ml: 2, mt: 2 }}>
               <p>
-                <Skeleton />
+                <Skeleton width={236} />
               </p>
               <p>
-                <Skeleton />
+                <Skeleton width={236} />
               </p>
               <p>
-                <Skeleton />
+                <Skeleton width={236} />
               </p>
               <p>
-                <Skeleton />
+                <Skeleton width={236} />
               </p>
             </Paper>
           </Box>
 
-          <Box>
-            <Skeleton
-              sx={{ m: 2, width: '100%' }}
-              variant='rectangular'
-              width={800}
-              height={280}
-            />
+          <Box sx={{ m: 2, flexGrow: 2 }}>
+            <Skeleton variant='rectangular' height={280} />
           </Box>
         </Box>
       )}
@@ -54,25 +46,28 @@ function StationDetails({ row }) {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
             px: 2,
             py: 2,
           }}>
-          <Paper sx={{ px: 8, py: 8, mr: 4 }} maxwidth={360}>
-            <Box>
-              <p>
-                Asema: {station?.nameFin} {station?.stationId}
-              </p>
-              <p>Osoite: {station?.addressFin}</p>
-              <p>Lähtevien matkojen lukumäärä: {station?.departureCount}</p>
-              <p>Saapuvien matkojen lukumäärä: {station?.returnCount}</p>
-            </Box>
+          <Paper
+            sx={{
+              px: 8,
+              py: 8,
+              mr: 2,
+              flexGrow: 0,
+              height: 152,
+              width: 236,
+            }}>
+            <p>
+              Asema: {station?.nameFin} {station?.stationId}
+            </p>
+            <p>Osoite: {station?.addressFin}</p>
+            <p>Lähtevien matkojen lukumäärä: {station?.departureCount}</p>
+            <p>Saapuvien matkojen lukumäärä: {station?.returnCount}</p>
           </Paper>
-          <CustomMap
-            sx={{ width: '100%', px: 2 }}
-            y={station?.y}
-            x={station?.x}
-          />
+          <Box sx={{ ml: 2, flexGrow: 1 }}>
+            <CustomMap sx={{ px: 2 }} y={station?.y} x={station?.x} />
+          </Box>
         </Box>
       )}
     </div>

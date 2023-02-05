@@ -10,21 +10,4 @@ export const theme = createTheme({
       main: '#e57373',
     },
   },
-  shape: {
-    borderRadius: 4,
-  },
-  spacing: 8,
-  overrides: {
-    MuiAppBar: {
-      colorInherit: {
-        backgroundColor: '#002422',
-        color: '#fff',
-      },
-    },
-  },
-  props: {
-    MuiAppBar: {
-      color: 'inherit',
-    },
-  },
 })
