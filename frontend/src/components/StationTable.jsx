@@ -57,10 +57,10 @@ function StationTable() {
   const handleRequestSort = (_, property) => {
     const isAsc = orderBy === property && order === 'asc'
     setOrder(isAsc ? 'desc' : 'asc')
-    console.log(isAsc)
     setOrderBy(property)
     sortingProps.onSortChange(property)
-    sortingProps.onOrderChange(order)
+    sortingProps.onOrderChange(isAsc ? 'desc' : 'asc')
+    console.log(order)
   }
 
   const ExpandableTableRow = ({ children, expandComponent }) => {
