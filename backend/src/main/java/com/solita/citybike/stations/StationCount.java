@@ -28,4 +28,7 @@ public interface StationCount {
 
     double getY();
 
+    Integer getDepartureCount();
+
+    Integer getReturnCount();
 }
