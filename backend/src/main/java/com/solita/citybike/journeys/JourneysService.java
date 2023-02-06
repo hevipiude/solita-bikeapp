@@ -12,13 +12,6 @@ public class JourneysService {
     @Autowired
     private JourneysRepository journeyRepository;
 
-    public Page<Journeys> getJourneysByPagination(int pageNo, int pageSize) {
-
-        PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
-        
-        return journeyRepository.findAll(pageRequest);
-    }
-
     public Page<Journeys> getJourneysByPageSort(int pageNo, int pageSize, String sort, String order) {
 
         PageRequest paging = PageRequest.of(pageNo, pageSize, Sort.by(sort).descending());
